@@ -65,18 +65,16 @@ function purchaseOrder(ID, amtNeeded) {
 
             var newStock = res[0].stock_quantity - amtNeeded;
 
+            connection.query("UPDATE products SET stock_quantity= " + newStock + " WHERE item_id = " + ID)
+
         } else {
             console.log("Insufficient quantity, sorry we do not have enough " + res[0].product_name + "to complete your order.");
         };
-        updateStock(ID, newStock);
+        
         displayProducts();
     });
 };
 
-function updateStock(ID, newStock) {
-    connection.query("UPDATE products SET stock_quantity = " + newStock + "WHERE item_id = " + ID, function (err, res) {
-        if (err) { console.log(err) };
-    });
-};
+
 
 displayProducts(); 
